@@ -192,8 +192,8 @@ class directory{    //Class that represent a directory in the file system, Each 
 class fileOperations{   //Class with enum type variables
     public:
         static enum operation{
-            create,
-            delete
+            CREATE,
+            DELETE
         }
 }
 
@@ -227,9 +227,9 @@ class fileSystem{
                 if(i<path.size())
                     return relocatefileUtil(File,substr(i),fileManger->getDirFromName(childDir));
                 else{
-                    if(type==fileOperations.operation.create)
+                    if(type==fileOperations.operation.CREATE)
                         fileManager->touch(File);
-                    else if(type==fileOperations.operation.delete)
+                    else if(type==fileOperations.operation.DELETE)
                         fileManager->deleteFile(File->getName());
                     return true;
                 }
@@ -241,7 +241,7 @@ class fileSystem{
         string copyFile(file* File,string &path){
             directory* tempDir=fileManger;
             file* newFile=new textFile(File);
-            if(relocatefileUtil(newFile,path,tempDir,fileOperations.operation.create)){
+            if(relocatefileUtil(newFile,path,tempDir,fileOperations.operation.CREATE)){
                 return File->getName()+" has been copied to path: "+path;
             }else{
                 return "No such path exists";
@@ -251,7 +251,7 @@ class fileSystem{
         string moveFile(file* File,string &path){
             directory* tempDir=fileManger;
             file* newFile=new textFile(File);
-            if(relocatefileUtil(newFile,path,tempDir,fileOperations.operation.create)){
+            if(relocatefileUtil(newFile,path,tempDir,fileOperations.operation.CREATE)){
                 File->delete();
                 return File->getName()+" has been moved to path: "+path;
             }else{
@@ -261,7 +261,7 @@ class fileSystem{
 
         string createFile(file* File,string &path){
             directory* tempDir=fileManger;
-            if(relocatefileUtil(File,path,tempDir,fileOperations.operation.create)){
+            if(relocatefileUtil(File,path,tempDir,fileOperations.operation.CREATE)){
                 return File->getName()+" has been created in path: "+path;
             }else{
                 return "No such path exists";
@@ -271,7 +271,7 @@ class fileSystem{
         string deleteFile(file* File,string &path){
             directory* tempDir=fileManger;
             string fileName=File->getName();
-            if(relocatefileUtil(File,path,tempDir,fileOperations.operation.delete)){
+            if(relocatefileUtil(File,path,tempDir,fileOperations.operation.DELETE)){
                 return fileName+" has been deleted from path: "+path;
             }else{
                 return "No such path exists";
